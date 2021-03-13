@@ -14,7 +14,7 @@ body {
 
 @font-face {
     font-family: "HANBatang-LVT";
-    src: url("/woff/HANBatang-LVT.woff2") format("woff2");
+    src: url("./woff/HANBatang-LVT.woff2") format("woff2");
 }
 
 .font-HANBatang-LVT {
@@ -23,7 +23,7 @@ body {
 
 @font-face {
     font-family: "HANDotum-LVT";
-    src: url("/woff/HANDotum-LVT.woff2") format("woff2");
+    src: url("./woff/HANDotum-LVT.woff2") format("woff2");
 }
 
 .font-HANDotum-LVT {
