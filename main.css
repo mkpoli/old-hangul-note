@@ -154,10 +154,14 @@ textarea:focus {
     margin-top: 0.5em;
 }
 
+/* -- Footer -- */
+
 footer {
-    color: #888;
-    font-style: italic;
     text-align: right;
+    
+    color: #888;
+    font-family: 'Georgia', 'Cambria', 'Century Schoolbook', serif;
+    font-style: italic;
 }
 
 footer a {
@@ -168,3 +172,5 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* --  -- */
