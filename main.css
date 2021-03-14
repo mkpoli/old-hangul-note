@@ -140,20 +140,18 @@ textarea:focus {
     outline: none;
 }
 
-#debug {
-    outline: 2px solid red;
-    position: fixed;
-    top: 2px;
-    left: 2px;
-    padding: 1em;
-    background: rgba(255, 255, 255, 0.5);
+/* --- Remove scrollbar form textarea --- */
+
+textarea {
+    scrollbar-width: none;
+    -ms-overflow-style: none;    
 }
 
-#debug p + p {
-    margin: 0;
-    margin-top: 0.5em;
+textarea::-webkit-scrollbar {
+    display: none;
 }
 
+/* ---  --- */
 /* -- Footer -- */
 
 footer {
