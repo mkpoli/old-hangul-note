@@ -23,7 +23,7 @@ function appHeight() {
     // debug(`window.innerHeight = ${window.innerHeight}px, 100vh = ${window.getComputedStyle(document.documentElement).getPropertyValue('min-width')}`)
     // debug(`body.height = ${ window.getComputedStyle(document.body).getPropertyValue('height') }`)
     if (mobileAndTabletCheck()) {
-        document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`)
+        document.documentElement.style.setProperty('--app-height', window.innerHeight + "px")
     }
 }
 window.addEventListener('resize', appHeight)
@@ -34,12 +34,16 @@ appHeight()
 document.addEventListener("DOMContentLoaded", function() {
     const fontSelector = document.getElementById("font-selector")
     const textArea = document.getElementById("text-area")
-    fontSelector.addEventListener('change', (event) => {
-        textArea.className = ''
-        textArea.classList.add(`font-${ fontSelector.value }`)
-
-        fontSelector.className = ''
-        fontSelector.classList.add(`font-${ fontSelector.value }`)
+    fontSelector.addEventListener('change', function () {
+        textArea.className = "font-" + fontSelector.value
+        fontSelector.className = "font-" + fontSelector.value
     })
+    var event;
+    if (typeof(Event) === 'function') {
+        event = new Event('submit');
+    } else {
+        event = document.createEvent('Event');
+        event.initEvent('submit', true, true);
+    }
     fontSelector.dispatchEvent(new Event('change'))
 });
