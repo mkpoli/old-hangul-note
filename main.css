@@ -81,17 +81,19 @@ body {
 
 .select-container .select-arrow {
     position: absolute;
-    top: 0;
+    top: 1px;
     right: 0;
+    bottom: 1px;
+
+    /* height: 100%; */
+    width: 2.6em;
+    
+    box-sizing: border-box;
 
     display: block;
     background-color: #ccc;
 
     border-radius: 0 10px 10px 0;
-
-    height: 100%;
-    width: 2.6em;
-
     pointer-events: none;
 }
 
