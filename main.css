@@ -96,6 +96,7 @@ body * {
 .select-container {
     position: relative;
     padding: 0;
+    overflow: hidden;
 }
 
 .select-container select {
@@ -122,17 +123,18 @@ body * {
 
 .select-container .select-arrow {
     position: absolute;
-    top: 1px;
+    top: -1px;
     right: 0;
-    bottom: 1px;
+    bottom: -1px;
 
     /* height: 100%; */
     width: 2.6em;
 
     display: block;
-    background-color: #ccc;
+    background-color: #aaa;
 
-    border-radius: 0 10px 10px 0;
+    border-radius: 0;
+    /* border-radius: 0 10px 10px 0; */
     pointer-events: none;
 }
 
