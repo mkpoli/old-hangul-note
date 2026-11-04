@@ -1,0 +1,119 @@
+@font-face {
+  font-family: 'HANBatang-LVT';
+  src: url('/fonts/HANBatang-LVT.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HANDotum-LVT';
+  src: url('/fonts/HANDotum-LVT.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  --paper: #fff;
+  --ink: #000;
+  --line: #aaa;
+  --focus: #000;
+  --shadow: #ccc;
+  --arrow: #fff;
+  --muted: #888;
+  font-size: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+}
+#app {
+  height: 100%;
+}
+.container {
+  height: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.input-box {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0 var(--shadow);
+  overflow: hidden;
+}
+.input-box:focus-within {
+  border-color: var(--focus);
+}
+.select-container {
+  position: relative;
+}
+.select-container select {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 3rem 0.7rem 1rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  appearance: none;
+  outline: none;
+}
+.select-container option {
+  background: var(--paper);
+}
+.select-arrow {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  bottom: -1px;
+  width: 2.6em;
+  background: var(--line);
+  pointer-events: none;
+}
+.select-arrow::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -20%);
+  border: 0.6em solid transparent;
+  border-top-color: var(--arrow);
+}
+.textarea-container {
+  flex: 1;
+  min-height: 6rem;
+}
+textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.2rem;
+  resize: none;
+  outline: none;
+  scrollbar-width: none;
+}
+footer {
+  text-align: right;
+  color: var(--muted);
+  font: italic 1rem Georgia, Cambria, 'Century Schoolbook', serif;
+}
+footer a {
+  color: inherit;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
