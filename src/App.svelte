@@ -78,6 +78,7 @@
   });
   const marked = $derived(tones === 'none' ? stripTones(text) : tones === 'dots' ? toDotTones(text) : text);
   const report = $derived(analyze(decoded));
+  const puaCount = $derived(report.hanyangSyllables + report.hanyangJamo);
   const missing = $derived(analyze(text).missingFromHanyang);
   const parts = $derived(segment(text));
   const selected = $derived(picked === null ? undefined : parts[picked]);
@@ -250,6 +251,12 @@
         {/if}
       </p>
       {#if notice}<p class="note">{notice}</p>{/if}
+      {#if puaCount}
+        <p class="note pua">
+          한양 PUA {puaCount.toLocaleString()}자를 읽었습니다.
+          <button class="quiet" onclick={() => { input = toComposed(decoded); notice = ''; picked = null; }}>입력을 표준 유니코드로 바꾸기</button>
+        </p>
+      {/if}
       {#if compatUnread}
         <label class="note"><input type="checkbox" bind:checked={readCompat} /> 호환 자모(ㅅㆍㄹ)를 음절로 묶어 읽기. 낱자 사이 음절 경계는 추정합니다.</label>
       {:else if readCompat}
@@ -485,6 +492,12 @@
   .option {
     display: block;
     color: var(--ink);
+  }
+  .pua {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
   }
   .warn {
     color: var(--warn);

@@ -5,7 +5,7 @@
     "": {
       "name": "old-hangul-note",
       "dependencies": {
-        "old-hangul-convert": "file:vendor/old-hangul-convert-0.1.0.tgz",
+        "old-hangul-convert": "file:vendor/old-hangul-convert-0.1.0-42417c1.tgz",
       },
       "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "6.2.4",
@@ -176,7 +176,7 @@
 
     "obug": ["obug@2.2.1", "", {}, "sha512-XrsrhT5sybtKI6wakr2SPOlGZWWYbUXZ7a0jT8/QOeAPau+1X/bSegNe5YR75oJmEZQbKningirmGOEJCIk61Q=="],
 
-    "old-hangul-convert": ["old-hangul-convert@vendor/old-hangul-convert-0.1.0.tgz", {}, "sha512-NgTHkQ3gNkuhJBXgsN3DRWCV4UF4W/yoB8j3eP0o3M62jsn9AtXWZnfOmUjZ7+7dWdY1SB1DjlIgznn7IpkMwQ=="],
+    "old-hangul-convert": ["old-hangul-convert@vendor/old-hangul-convert-0.1.0-42417c1.tgz", {}, "sha512-+EMeAk1nlbJCchvFN7pqB/E4vrKc9/JSV4C1F6UZgZKK9wACHQ96PCzdZpj4jJ8p66HJwHQDY9iWshC+d1gycQ=="],
 
     "picocolors": ["picocolors@1.1.1", "", {}, "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="],
 
