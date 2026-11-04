@@ -16,6 +16,7 @@
   import { backspace, letterForKey, press } from './lib/composer';
   import { plainText } from './lib/paste';
 
+  const TONES = /^[\u302E\u302F]+/;
   const SAMPLE = `솅조ᇰ엉졩 훈민져ᇰᅙᅳᆷ
 나랏ᄆᆞᆯᄊᆞ미 듕귁에 달아 문ᄍᆞᆼ와로 서르 ᄉᆞᄆᆞᆺ디 아니ᄒᆞᆯᄊᆡ 이런 젼ᄎᆞ로 어린 ᄇᆡᆨ셔ᇰ이 니르고져 호ᇙ배이셔도 ᄆᆞᄎᆞᆷ내 제 ᄠᅳ들 시러 펴디 몯 ᄒᆞᇙ 노미 하니라. 내 이ᄅᆞᆯ 윙ᄒᆞ야 어엿비 너겨 새로 스믈 여듧 ᄍᆞᆼᄅᆞᆯ ᄆᆡᇰᄀᆞ노니 사ᄅᆞᆷ마다 ᄒᆡᅇᅧ 수ᄫᅵ 니겨 날로 ᄡᅮ메 뼌ᅙᅡᆫ킈 ᄒᆞ고져 ᄒᆞᇙ ᄯᆞᄅᆞ미니라.`;
 
@@ -81,6 +82,18 @@
   const puaCount = $derived(report.hanyangSyllables + report.hanyangJamo);
   const missing = $derived(analyze(text).missingFromHanyang);
   const parts = $derived(segment(text));
+  // A tone mark stays in its syllable's button, or the font can't attach it across elements.
+  const readingParts = $derived(
+    parts.map((part, index) => {
+      if (part.kind === 'other') {
+        const follows = parts[index - 1]?.kind === 'syllable';
+        return { index, syllable: null, text: follows ? part.text.replace(TONES, '') : part.text };
+      }
+      const next = parts[index + 1];
+      const tones = next?.kind === 'other' ? (TONES.exec(next.text)?.[0] ?? '') : '';
+      return { index, syllable: part, text: toComposed(part.lead + part.vowel + part.tail) + tones };
+    }),
+  );
   const selected = $derived(picked === null ? undefined : parts[picked]);
 
   const summary = $derived(
@@ -281,11 +294,11 @@
         <span class="muted">글자를 누르면 코드를 보여 줍니다</span>
       </div>
       <div class="reading" lang="ko">
-        {#each parts as part, i}{#if part.kind === 'other'}{part.text}{:else}<button
+        {#each readingParts as part}{#if part.syllable === null}{part.text}{:else}<button
             class="syllable"
-            class:picked={picked === i}
-            onclick={() => (picked = picked === i ? null : i)}
-          >{toComposed(part.lead + part.vowel + part.tail)}</button>{/if}{/each}
+            class:picked={picked === part.index}
+            onclick={() => (picked = picked === part.index ? null : part.index)}
+          >{part.text}</button>{/if}{/each}
       </div>
       {#if selected?.kind === 'syllable'}
         <dl class="inspect">
