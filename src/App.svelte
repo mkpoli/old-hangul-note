@@ -15,9 +15,14 @@
 
   type Format = 'composed' | 'jamo' | 'hanyang' | 'compat';
 
-  const FONTS = [
+  const FONTS: { id: string; label: string; pua?: string }[] = [
     { id: 'HANBatang-LVT', label: '함초롬바탕 LVT' },
     { id: 'HANDotum-LVT', label: '함초롬돋움 LVT' },
+    { id: 'NanumMyeongjo-YetHangul', label: '나눔명조 옛한글' },
+    { id: 'NanumBarunGothic-YetHangul', label: '나눔바른고딕 옛한글' },
+    // Noto has no Hanyang PUA glyphs, so those characters fall back to the Nanum face of the same style.
+    { id: 'NotoSerifKR', label: 'Noto Serif KR', pua: 'NanumMyeongjo-YetHangul' },
+    { id: 'NotoSansKR', label: 'Noto Sans KR', pua: 'NanumBarunGothic-YetHangul' },
   ];
   const FORMATS: { id: Format; label: string; write: (text: string) => string }[] = [
     { id: 'composed', label: '표준 유니코드', write: (text) => toComposed(text) },
@@ -58,6 +63,10 @@
   let copied = $state(false);
   let status = $state('');
   let area: HTMLTextAreaElement;
+  const family = $derived.by(() => {
+    const { pua } = FONTS.find(({ id }) => id === font) ?? {};
+    return pua ? `'${font}', '${pua}'` : `'${font}'`;
+  });
 
   // Switching back after a lossy format restores the text as it was, unless it has been edited.
   let source = '';
@@ -146,7 +155,7 @@
 <div class="container">
   <div class="selects">
     <div class="select-container input-box">
-      <select bind:value={font} aria-label="글꼴" style:font-family={`'${font}'`}>
+      <select bind:value={font} aria-label="글꼴" style:font-family={family}>
         {#each FONTS as { id, label }}
           <option value={id}>{label}</option>
         {/each}
@@ -154,7 +163,7 @@
       <span class="select-arrow"></span>
     </div>
     <div class="select-container input-box">
-      <select bind:value={format} onchange={changeFormat} aria-label="저장 형식" style:font-family={`'${font}'`}>
+      <select bind:value={format} onchange={changeFormat} aria-label="저장 형식" style:font-family={family}>
         {#each FORMATS as { id, label }}
           <option value={id}>{label}</option>
         {/each}
@@ -172,14 +181,14 @@
       lang="ko"
       spellcheck="false"
       placeholder={PLACEHOLDER}
-      style:font-family={`'${font}'`}
+      style:font-family={family}
     ></textarea>
   </div>
 
   {#if keyboard}
     <div class="palette" role="group" aria-label="옛글자">
       {#each PALETTE as [key, letter, shown]}
-        <button onmousedown={(event) => event.preventDefault()} onclick={() => typeLetter(letter)} style:font-family={`'${font}'`}>
+        <button onmousedown={(event) => event.preventDefault()} onclick={() => typeLetter(letter)} style:font-family={family}>
           {shown}<kbd>⇧{key}</kbd>
         </button>
       {/each}
