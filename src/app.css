@@ -1,41 +1,34 @@
 @font-face {
-  font-family: 'HCR Batang LVT';
+  font-family: 'HANBatang-LVT';
   src: url('/fonts/HANBatang-LVT.woff2') format('woff2');
   font-display: swap;
 }
 @font-face {
-  font-family: 'HCR Dotum LVT';
+  font-family: 'HANDotum-LVT';
   src: url('/fonts/HANDotum-LVT.woff2') format('woff2');
   font-display: swap;
 }
 
 :root {
   color-scheme: light dark;
-  --paper: #f8f6f1;
-  --surface: #fffefb;
-  --sunken: #f0ece3;
-  --ink: #23201b;
-  --soft: #6b6559;
-  --line: #d9d3c6;
-  --accent: #a33a22;
-  --accent-ink: #fffefb;
-  --mark: #f3dfc4;
-  --warn: #8a5a00;
-  --ui: system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans CJK KR', sans-serif;
-  --mono: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+  --paper: #fff;
+  --ink: #000;
+  --line: #aaa;
+  --focus: #000;
+  --shadow: #ccc;
+  --arrow: #fff;
+  --muted: #888;
+  font-size: 20px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #191816;
-    --surface: #23211e;
-    --sunken: #2c2a26;
-    --ink: #ece7dc;
-    --soft: #a59e90;
-    --line: #3f3b35;
-    --accent: #e8866b;
-    --accent-ink: #191816;
-    --mark: #5a3f25;
-    --warn: #e0b45c;
+    --paper: #1b1b1b;
+    --ink: #eee;
+    --line: #666;
+    --focus: #ccc;
+    --shadow: #000;
+    --arrow: #1b1b1b;
+    --muted: #999;
   }
 }
 
@@ -44,19 +37,146 @@
 }
 body {
   margin: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: var(--paper);
   color: var(--ink);
-  font: 15px/1.6 var(--ui);
 }
-button,
-select,
+#app {
+  height: 100%;
+}
+.container {
+  height: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.input-box {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px 0 var(--shadow);
+  overflow: hidden;
+}
+.input-box:focus-within {
+  border-color: var(--focus);
+}
+.selects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.select-container {
+  flex: 1 1 14rem;
+  min-width: 0;
+  position: relative;
+}
+.select-container select {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 3rem 0.7rem 1rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  appearance: none;
+  outline: none;
+}
+.select-container option {
+  background: var(--paper);
+}
+.select-arrow {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  bottom: -1px;
+  width: 2.6em;
+  background: var(--line);
+  pointer-events: none;
+}
+.select-arrow::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -20%);
+  border: 0.6em solid transparent;
+  border-top-color: var(--arrow);
+}
+.textarea-container {
+  flex: 1;
+  min-height: 6rem;
+}
 textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.2rem;
+  resize: none;
+  outline: none;
+  scrollbar-width: none;
+}
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.palette button {
+  min-width: 2.4rem;
+  padding: 0.2rem 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.palette kbd {
+  display: block;
+  color: var(--muted);
+  font: 0.5rem/1.2 system-ui, sans-serif;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font: 0.7rem/1.4 system-ui, -apple-system, 'Malgun Gothic', sans-serif;
+}
+.status {
+  flex: 1;
+  color: var(--muted);
+}
+.copy {
+  padding: 0.35rem 1.2rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--line);
+  color: var(--arrow);
   font: inherit;
-  color: inherit;
+  font-weight: 700;
+  cursor: pointer;
 }
-a {
-  color: inherit;
+.copy:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
-kbd {
-  font: 12px/1 var(--mono);
+footer {
+  text-align: right;
+  color: var(--muted);
+  font: italic 1rem Georgia, Cambria, 'Century Schoolbook', serif;
+}
+footer a {
+  color: inherit;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
 }

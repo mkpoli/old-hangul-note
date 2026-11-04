@@ -1,8 +1,8 @@
 # 옛한글 노트 (Old Hangul Note)
 
-Types, displays and converts old Hangul in the browser, at [hangul.mkpo.li](https://hangul.mkpo.li).
+A note for old Hangul, at [hangul.mkpo.li](https://hangul.mkpo.li).
 
-Paste text in any mix of Hanyang PUA, conjoining jamo and Naver Dictionary's image glyphs, and the page reads it, shows it in an LVT font, and writes it out as standard Unicode, conjoining jamo, Hanyang PUA or compatibility letters. Conversion comes from the [old-hangul-convert](https://github.com/mkpoli/old-hangul-convert) library.
+Type or paste into the box and it displays in an LVT font. The second menu decides how the text is stored: standard Unicode, conjoining jamo, Hanyang PUA or compatibility letters. Pasted text, including Naver Dictionary's image glyphs, is converted to that form, and Copy gives you that form. Conversion comes from the [old-hangul-convert](https://github.com/mkpoli/old-hangul-convert) library, whose README lists the sources of its tables.
 
 ```sh
 bun install
