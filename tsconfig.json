@@ -4,7 +4,7 @@
     "module": "Preserve",
     "moduleResolution": "Bundler",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["svelte"],
+    "types": ["bun", "svelte"],
     "strict": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,

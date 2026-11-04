@@ -7,7 +7,10 @@ Type into the box and it displays in an LVT font.
 ```sh
 bun install
 bun run dev
+bun test src
 ```
+
+The keyboard follows Microsoft Old Hangul: two-set layout, with ㆍ ㅿ ㆁ ㆆ ᄼ ᄾ ᅎ ᅐ ᅔ ᅕ on the Shift layer.
 
 ## Fonts
 
