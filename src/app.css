@@ -143,6 +143,21 @@ textarea {
   gap: 0.75rem;
   font: 0.7rem/1.4 system-ui, -apple-system, 'Malgun Gothic', sans-serif;
 }
+.copy {
+  margin-left: auto;
+  padding: 0.35rem 1.2rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--line);
+  color: var(--arrow);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.copy:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 footer {
   text-align: right;
   color: var(--muted);

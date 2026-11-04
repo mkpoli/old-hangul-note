@@ -35,6 +35,7 @@
   let input = $state(stored('text', ''));
   let font = $state(stored('font', FONTS[0]!.id));
   let keyboard = $state(stored('keyboard', '') === 'on');
+  let copied = $state(false);
   let area: HTMLTextAreaElement;
 
   $effect(() => store('text', input));
@@ -70,6 +71,12 @@
     if (!letter) return;
     event.preventDefault();
     typeLetter(letter);
+  }
+
+  async function copy() {
+    await navigator.clipboard.writeText(input);
+    copied = true;
+    setTimeout(() => (copied = false), 1500);
   }
 </script>
 
@@ -107,6 +114,7 @@
 
   <div class="actions">
     <label><input type="checkbox" bind:checked={keyboard} /> 옛한글 자판</label>
+    <button class="copy" onclick={copy} disabled={!input}>{copied ? '복사됨' : '복사'}</button>
   </div>
 
   <footer><a href="https://github.com/mkpoli/old-hangul-note">Old Hangul Note</a> by <a href="https://github.com/mkpoli">@mkpoli</a></footer>
