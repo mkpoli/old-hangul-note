@@ -6,8 +6,24 @@
     { id: 'HANDotum-LVT', label: '함초롬돋움 LVT' },
   ];
 
-  let input = $state('');
-  let font = $state(FONTS[0]!.id);
+  function stored(key: string, fallback: string): string {
+    try {
+      return localStorage.getItem(key) ?? fallback;
+    } catch {
+      return fallback;
+    }
+  }
+  function store(key: string, value: string) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {}
+  }
+
+  let input = $state(stored('text', ''));
+  let font = $state(stored('font', FONTS[0]!.id));
+
+  $effect(() => store('text', input));
+  $effect(() => store('font', font));
 </script>
 
 <div class="container">
