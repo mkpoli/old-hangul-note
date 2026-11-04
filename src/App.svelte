@@ -3,12 +3,14 @@
     analyze,
     fromCompatibility,
     fromHanyang,
+    fromNaverImages,
     toCompatibility,
     toComposed,
     toHanyang,
     toJamo,
   } from 'old-hangul-convert';
   import { backspace, letterForKey, press } from './lib/composer';
+  import { plainText } from './lib/paste';
   import { PLACEHOLDER } from './lib/placeholder';
 
   type Format = 'composed' | 'jamo' | 'hanyang' | 'compat';
@@ -117,6 +119,20 @@
     typeLetter(letter);
   }
 
+  // Letters only old Hangul uses mark text spelled out as compatibility letters; modern ones like ㅋㅋ stay.
+  const readPasted = (text: string) => (/[\u3165-\u318e]/.test(text) ? fromCompatibility(text) : text);
+
+  function onPaste(event: ClipboardEvent) {
+    const html = event.clipboardData?.getData('text/html') ?? '';
+    const read = fromNaverImages(html);
+    const pasted = read !== html ? plainText(read) : event.clipboardData?.getData('text/plain');
+    if (!pasted) return;
+    const text = readPasted(pasted);
+    event.preventDefault();
+    replaceBefore(input.slice(0, area.selectionStart) + write(text), area.selectionEnd);
+    reportMissing(text);
+  }
+
   async function copy() {
     const value = write(input);
     if (value !== input) input = value;
@@ -152,6 +168,7 @@
       bind:this={area}
       bind:value={input}
       onkeydown={onKeydown}
+      onpaste={onPaste}
       lang="ko"
       spellcheck="false"
       placeholder={PLACEHOLDER}

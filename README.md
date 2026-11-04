@@ -3,7 +3,7 @@
 A note for old Hangul, at [hangul.mkpo.li](https://hangul.mkpo.li).
 
 Type or paste into the box and it displays in an LVT font. The second menu decides how the text is stored: standard Unicode, conjoining jamo, Hanyang PUA or compatibility letters. Copy gives you that form. Conversion comes from the [old-hangul-convert](https://github.com/mkpoli/old-hangul-convert) library, whose README lists the sources of its tables.
-
+Pasted text, including Naver Dictionary's image glyphs, is converted to the chosen form.
 
 ```sh
 bun install
