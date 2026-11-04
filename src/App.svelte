@@ -14,6 +14,7 @@
     type Syllable,
   } from 'old-hangul-convert';
   import { backspace, letterForKey, press } from './lib/composer';
+  import { plainText } from './lib/paste';
 
   const SAMPLE = `솅조ᇰ엉졩 훈민져ᇰᅙᅳᆷ
 나랏ᄆᆞᆯᄊᆞ미 듕귁에 달아 문ᄍᆞᆼ와로 서르 ᄉᆞᄆᆞᆺ디 아니ᄒᆞᆯᄊᆡ 이런 젼ᄎᆞ로 어린 ᄇᆡᆨ셔ᇰ이 니르고져 호ᇙ배이셔도 ᄆᆞᄎᆞᆷ내 제 ᄠᅳ들 시러 펴디 몯 ᄒᆞᇙ 노미 하니라. 내 이ᄅᆞᆯ 윙ᄒᆞ야 어엿비 너겨 새로 스믈 여듧 ᄍᆞᆼᄅᆞᆯ ᄆᆡᇰᄀᆞ노니 사ᄅᆞᆷ마다 ᄒᆡᅇᅧ 수ᄫᅵ 니겨 날로 ᄡᅮ메 뼌ᅙᅡᆫ킈 ᄒᆞ고져 ᄒᆞᇙ ᄯᆞᄅᆞ미니라.`;
@@ -65,15 +66,19 @@
   $effect(() => store('font', font));
   $effect(() => store('keyboard', keyboard ? 'on' : ''));
 
-  const hasImageTags = $derived(/<img\b[^>]*\/imgfont\//i.test(input));
+  const decoded = $derived.by(() => {
+    const read = fromNaverImages(input);
+    return read === input ? input : read.replace(/<[^>]+>/g, '');
+  });
   const text = $derived.by(() => {
-    let read = hasImageTags ? fromNaverImages(input).replace(/<[^>]+>/g, '') : input;
+    let read = decoded;
     if (readCompat) read = fromCompatibility(read);
     if (readDots) read = fromDotTones(read);
     return read;
   });
   const marked = $derived(tones === 'none' ? stripTones(text) : tones === 'dots' ? toDotTones(text) : text);
-  const report = $derived(analyze(input.includes('<img') ? text : input));
+  const report = $derived(analyze(decoded));
+  const missing = $derived(analyze(text).missingFromHanyang);
   const parts = $derived(segment(text));
   const selected = $derived(picked === null ? undefined : parts[picked]);
 
@@ -89,8 +94,8 @@
       ] as [string, number][]
     ).filter(([, count]) => count > 0),
   );
-  const compatUnread = $derived(!readCompat && report.compatibility > 0 && fromCompatibility(input) !== input);
-  const dotsUnread = $derived(!readDots && /[·・:：][가-힣ᄀ-ᅟ]/.test(input));
+  const compatUnread = $derived(!readCompat && fromCompatibility(decoded) !== decoded);
+  const dotsUnread = $derived(!readDots && fromDotTones(decoded) !== toComposed(decoded));
 
   const outputs = $derived([
     {
@@ -175,13 +180,12 @@
 
   function onPaste(event: ClipboardEvent) {
     const html = event.clipboardData?.getData('text/html');
-    if (!html || !/\/imgfont\//i.test(html)) return;
-    const count = html.match(/<img\b[^>]*\/imgfont\//gi)?.length ?? 0;
+    if (!html) return;
+    const read = fromNaverImages(html);
+    if (read === html) return;
     event.preventDefault();
-    const doc = new DOMParser().parseFromString(fromNaverImages(html), 'text/html');
-    const start = area.selectionStart;
-    const before = input.slice(0, start) + (doc.body.textContent ?? '');
-    replaceBefore(before, area.selectionEnd);
+    const count = html.length && [...html.matchAll(/<img\b/gi)].length - [...read.matchAll(/<img\b/gi)].length;
+    replaceBefore(input.slice(0, area.selectionStart) + plainText(read), area.selectionEnd);
     notice = `네이버 이미지 글자 ${count}자를 읽었습니다.`;
   }
 
@@ -312,8 +316,8 @@
           {#if output.id === 'jamo'}
             <label class="option"><input type="checkbox" bind:checked={singleLetters} /> 겹자모를 낱자로 풀기 (ᄢ → ᄇᄉᄀ)</label>
           {:else if output.id === 'hanyang'}
-            {#if report.missingFromHanyang.length}
-              <p class="warn">한양 PUA에 없는 글자 {report.missingFromHanyang.length}종: <span lang="ko" class="inline">{report.missingFromHanyang.slice(0, 12).join(' ')}</span></p>
+            {#if missing.length}
+              <p class="warn">한양 PUA에 없는 글자 {missing.length}종: <span lang="ko" class="inline">{missing.slice(0, 12).join(' ')}</span></p>
               <label class="option"><input type="checkbox" bind:checked={puaJamo} /> 이 글자들을 PUA 자모로 적기 (기본은 표준 첫가끝)</label>
             {/if}
           {/if}
