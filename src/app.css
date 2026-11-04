@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'HCR Batang LVT';
+  src: url('/fonts/HANBatang-LVT.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HCR Dotum LVT';
+  src: url('/fonts/HANDotum-LVT.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light dark;
+  --paper: #f8f6f1;
+  --surface: #fffefb;
+  --sunken: #f0ece3;
+  --ink: #23201b;
+  --soft: #6b6559;
+  --line: #d9d3c6;
+  --accent: #a33a22;
+  --accent-ink: #fffefb;
+  --mark: #f3dfc4;
+  --warn: #8a5a00;
+  --ui: system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans CJK KR', sans-serif;
+  --mono: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #191816;
+    --surface: #23211e;
+    --sunken: #2c2a26;
+    --ink: #ece7dc;
+    --soft: #a59e90;
+    --line: #3f3b35;
+    --accent: #e8866b;
+    --accent-ink: #191816;
+    --mark: #5a3f25;
+    --warn: #e0b45c;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.6 var(--ui);
+}
+button,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+a {
+  color: inherit;
+}
+kbd {
+  font: 12px/1 var(--mono);
+}
