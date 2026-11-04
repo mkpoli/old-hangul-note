@@ -28,3 +28,7 @@ Served as webfonts:
 * [Noto Sans KR](https://github.com/notofonts/noto-cjk/blob/165c01b46ea5/Sans/SubsetOTF/KR/NotoSansKR-Regular.otf) (OFL-1.1, Adobe), Version 2.004, compressed to woff2 without other changes
 
 The Noto faces have no Hanyang PUA glyphs, so PUA text set in them is drawn with the Nanum face of the same style. The licence is in [`public/fonts/OFL.txt`](public/fonts/OFL.txt).
+
+## License
+
+The code is [MIT](LICENSE). The fonts in `public/fonts/` keep their own licences, listed above.
