@@ -2,8 +2,7 @@
 
 A note for old Hangul, at [hangul.mkpo.li](https://hangul.mkpo.li).
 
-Type or paste into the box and it displays in an LVT font. The second menu decides how the text is stored: standard Unicode, conjoining jamo, Hanyang PUA or compatibility letters. Copy gives you that form. Conversion comes from the [old-hangul-convert](https://github.com/mkpoli/old-hangul-convert) library, whose README lists the sources of its tables.
-Pasted text, including Naver Dictionary's image glyphs, is converted to the chosen form.
+Type or paste into the box and it displays in the chosen font. The second menu decides how the text is stored: standard Unicode, conjoining jamo, Hanyang PUA or compatibility letters. Pasted text, including Naver Dictionary's image glyphs, is converted to that form, and Copy gives you that form. Conversion comes from the [old-hangul-convert](https://github.com/mkpoli/old-hangul-convert) library, whose README lists the sources of its tables. The library isn't on npm yet, so a packed copy lives in `vendor/`.
 
 ```sh
 bun install
@@ -12,6 +11,10 @@ bun test src
 ```
 
 The keyboard follows Microsoft Old Hangul: two-set layout, with ㆍ ㅿ ㆁ ㆆ ᄼ ᄾ ᅎ ᅐ ᅔ ᅕ on the Shift layer.
+
+## Deployment
+
+Every push to `main` builds the page and deploys it to GitHub Pages through `.github/workflows/pages.yml`. The domain is a DNS-only CNAME on Cloudflare from `hangul.mkpo.li` to `mkpoli.github.io`, and the custom domain is set in the repository's Pages settings.
 
 ## Fonts
 
