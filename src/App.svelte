@@ -210,7 +210,7 @@
     <button class="copy" onclick={copy} disabled={!input}>{copied ? '복사됨' : '복사'}</button>
   </div>
 
-  <footer><a href="https://github.com/mkpoli/old-hangul-note">Old Hangul Note</a> by <a href="https://github.com/mkpoli">@mkpoli</a> · <a href="https://scripts.mkpo.li/ko/">다른 문자 프로젝트 ↗</a></footer>
+  <footer><a href="https://github.com/mkpoli/old-hangul-note">Old Hangul Note</a> by <a href="https://github.com/mkpoli">@mkpoli</a> · <a href="https://moji.mkpo.li/ko/">다른 문자 프로젝트 ↗</a></footer>
 </div>
 
 <SponsorDialog bind:open={sponsorOpen} />
