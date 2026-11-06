@@ -29,6 +29,12 @@ Served as webfonts:
 
 The Noto faces have no Hanyang PUA glyphs, so PUA text set in them is drawn with the Nanum face of the same style. The licence is in [`public/fonts/OFL.txt`](public/fonts/OFL.txt).
 
+## Sponsor
+
+I build Old Hangul Note on my own, with no funding behind it, and it's free for everyone. If it's useful to you, a tip on [Ko-fi](https://ko-fi.com/mkpoli) or [OFUSE](https://ofuse.me/mkpoli) gives me time to keep improving it. Companies interested in sponsoring can write to mkpoli@mkpo.li.
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mkpoli)
+
 ## License
 
 The code is [MIT](LICENSE). The fonts in `public/fonts/` keep their own licences, listed above.
