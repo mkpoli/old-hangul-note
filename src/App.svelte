@@ -12,6 +12,7 @@
   import { backspace, letterForKey, press } from './lib/composer';
   import { plainText } from './lib/paste';
   import { PLACEHOLDER } from './lib/placeholder';
+  import SponsorDialog from './SponsorDialog.svelte';
 
   type Format = 'composed' | 'jamo' | 'hanyang' | 'compat';
 
@@ -61,6 +62,7 @@
   let format = $state(stored('format', 'composed') as Format);
   let keyboard = $state(stored('keyboard', '') === 'on');
   let copied = $state(false);
+  let sponsorOpen = $state(false);
   let status = $state('');
   let area: HTMLTextAreaElement;
   const family = $derived.by(() => {
@@ -198,8 +200,17 @@
   <div class="actions">
     <label><input type="checkbox" bind:checked={keyboard} /> 옛한글 자판</label>
     <span class="status">{status}</span>
+    <button type="button" class="sponsor" aria-haspopup="dialog" aria-expanded={sponsorOpen} onclick={() => (sponsorOpen = true)}>
+      <span class="sponsor-face" aria-hidden="true">
+        <img src="/sponsor-face.webp" alt="" width="24" height="24" decoding="async" />
+        <svg class="sponsor-heart" viewBox="0 0 24 24"><path d="M12 21s-8.5-5.1-8.5-11.3A4.7 4.7 0 0 1 12 6.9a4.7 4.7 0 0 1 8.5 2.8C20.5 15.9 12 21 12 21Z" /></svg>
+      </span>
+      <span>후원</span>
+    </button>
     <button class="copy" onclick={copy} disabled={!input}>{copied ? '복사됨' : '복사'}</button>
   </div>
 
   <footer><a href="https://github.com/mkpoli/old-hangul-note">Old Hangul Note</a> by <a href="https://github.com/mkpoli">@mkpoli</a></footer>
 </div>
+
+<SponsorDialog bind:open={sponsorOpen} />
